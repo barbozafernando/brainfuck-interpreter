@@ -5,10 +5,6 @@
 
 #define TAPE_CAPACITY 100
 
-/*
-+++++++++[>++++++++<-]>+++++++. = O
-*/
-
 void printt(char* tape, size_t len) {
   printf("\n");
   for(size_t i = 0; i < len; i++) {
@@ -97,8 +93,6 @@ void interpret(char* program, char* p_tape) {
         fprintf(stderr, "Command doesnt exist\n");
     };
   }
-
-   //printt(p_tape, program_length);
 }
 
 int main() {
