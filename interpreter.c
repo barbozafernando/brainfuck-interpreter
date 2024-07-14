@@ -35,7 +35,7 @@ void interpret(char* program, char* p_tape) {
         break;
       case '>':
         {
-          char* p_next  = p_tape + 1;
+          char* p_next = p_tape + 1;
           if (p_next > final_tape) {
             fprintf(stderr, "SEGFAULT");
             exit(EXIT_FAILURE);
@@ -56,6 +56,14 @@ void interpret(char* program, char* p_tape) {
         program++;
         break;
       case '.':
+        {
+          char* p_next = p_tape + 1;
+          if (*p_next == '\0') {
+            fprintf(stdout, "%c\n", *p_tape);
+            program++;
+            break;
+          }
+        }
         fprintf(stdout, "%c", *p_tape);
         program++;
         break;
@@ -74,18 +82,28 @@ void interpret(char* program, char* p_tape) {
             program++;
         }
         break;
+      case ',':
+        {
+          char b;
+          scanf(" %c", &b);
+          *p_tape = b;
+        }
+        program++;
+        break;
+      case ' ':
+        program++;
+        break;
       default:
         fprintf(stderr, "Command doesnt exist\n");
     };
   }
 
-   printt(p_tape, program_length);
+   //printt(p_tape, program_length);
 }
 
 int main() {
   char* tape = calloc(TAPE_CAPACITY, sizeof(uint8_t));
-  char code[] = "++++++++++[>++++++++<-]>+++++++.";
-  //char code[] = "+++[>++<-]>+++.";
+  char code[] = "+++++ +++++ [> +++++ ++> +++++ +++++> +++ <<< -]> ++.> +++++.>+++.";
 
   interpret(&code[0], tape);
   
