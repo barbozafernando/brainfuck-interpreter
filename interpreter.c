@@ -3,23 +3,30 @@
 #include <stdint.h>
 #include <string.h>
 
-#define TAPE_CAPACITY 100
+#define TAPE_CAPACITY 4096
 
 void interpret(char* program, char* p_tape) {
   void* base_tape       = p_tape;
   char* final_tape      = p_tape + TAPE_CAPACITY;
-  char* p_lpst          = {0};
-  size_t program_length = strlen(program);
 
-  while(*program != '\0') {
-    switch (*program) {
+  FILE* f = fopen(program, "r");
+
+  if (f == NULL) {
+    fprintf(stderr, "Error reading file");
+    return;
+  }
+
+  int c;
+  long loop_stack[256];
+  int loop_stack_ptr = 0;
+
+  while((c = getc(f)) != EOF) {
+    switch (c) {
       case '+':
         *p_tape += 1;
-        program++;
         break;
       case '-':
         *p_tape -= 1;
-         program++;
         break;
       case '>':
         {
@@ -30,7 +37,6 @@ void interpret(char* program, char* p_tape) {
           }
         }
         p_tape++;
-        program++;
         break;
       case '<':
         {
@@ -41,61 +47,60 @@ void interpret(char* program, char* p_tape) {
           }
         }
         p_tape--;
-        program++;
         break;
       case '.':
-        {
-          char* p_next = p_tape + 1;
-          if (*p_next == '\0') {
-            fprintf(stdout, "%c\n", *p_tape);
-            program++;
-            break;
-          }
-        }
         fprintf(stdout, "%c", *p_tape);
-        program++;
         break;
       case '[':
-        {
-          void* p_loop = program + 1;
-          p_lpst = p_loop;
+        if (*p_tape == 0) {
+          int open_brackets = 1;
+          while (open_brackets != 0) {
+            c = getc(f);
+            if (c == EOF) {
+              fprintf(stderr, "Unmatched '['\n");
+              exit(EXIT_FAILURE);
+            } else if (c == '[') {
+              open_brackets++;
+            } else if (c == ']') {
+              open_brackets--;
+            }
+          }
+        } else {
+          loop_stack[loop_stack_ptr++] = ftell(f) - 1;
         }
-        program++;
         break;
       case ']':
-        {
-          if (*p_tape != 0)
-            program = p_lpst;
-          else
-            program++;
+        if (*p_tape != 0) {
+          fseek(f, loop_stack[loop_stack_ptr - 1], SEEK_SET);
+        } else {
+          loop_stack_ptr--;
         }
         break;
       case ',':
-        {
-          char b;
-          scanf(" %c", &b);
-          *p_tape = b;
-        }
-        program++;
+        *p_tape = getchar();
         break;
       case ' ':
       case '\n':
       case '\t':
       case '\r':
-        program++;
         break;
       default:
         fprintf(stderr, "Command doesnt exist\n");
-        program++;
     };
   }
 }
 
-int main() {
-  char* tape = calloc(TAPE_CAPACITY, sizeof(uint8_t));
-  char code[] = "+++++ +++++ [> +++++ ++> +++++ +++++> +++ <<< -]> ++.> +++++.>+++.";
+int main(int argc, char** argv) {
+  if (argc < 2) {
+    fprintf(stderr, "Usage: %s <program.b|bf>\n", argv[0]);
+    return EXIT_FAILURE;
+  }
 
-  interpret(&code[0], tape);
+  char* tape = calloc(TAPE_CAPACITY, sizeof(char));
+
+  interpret(argv[1], tape);
+
+  free(tape);
   
   return EXIT_SUCCESS;
 }
