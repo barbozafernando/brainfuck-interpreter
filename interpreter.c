@@ -5,14 +5,6 @@
 
 #define TAPE_CAPACITY 100
 
-void printt(char* tape, size_t len) {
-  printf("\n");
-  for(size_t i = 0; i < len; i++) {
-    printf("[%d]", tape[i]);
-  }
-  printf("\n");
-};
-
 void interpret(char* program, char* p_tape) {
   void* base_tape       = p_tape;
   char* final_tape      = p_tape + TAPE_CAPACITY;
@@ -87,10 +79,14 @@ void interpret(char* program, char* p_tape) {
         program++;
         break;
       case ' ':
+      case '\n':
+      case '\t':
+      case '\r':
         program++;
         break;
       default:
         fprintf(stderr, "Command doesnt exist\n");
+        program++;
     };
   }
 }
