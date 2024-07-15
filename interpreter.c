@@ -5,6 +5,10 @@
 
 #define TAPE_CAPACITY 4096
 
+void print_usage() {
+  fprintf(stderr, "Usage: <program.b|bf>\n");
+}
+
 void interpret(char* program, char* p_tape) {
   void* base_tape       = p_tape;
   char* final_tape      = p_tape + TAPE_CAPACITY;
@@ -90,9 +94,32 @@ void interpret(char* program, char* p_tape) {
   }
 }
 
+int is_brainfuck_file(const char* filename) {
+  char* ext = strrchr(filename, '.');
+
+  if (ext == NULL) {
+    return EXIT_FAILURE;
+  }
+
+  ext++;
+
+  if ((strcmp(ext, "b") == 0) || (strcmp(ext, "bf") == 0)) {
+    return EXIT_SUCCESS;
+  }
+
+  return EXIT_FAILURE;
+}
+
 int main(int argc, char** argv) {
   if (argc < 2) {
-    fprintf(stderr, "Usage: %s <program.b|bf>\n", argv[0]);
+    print_usage();
+    return EXIT_FAILURE;
+  }
+
+  const char* filename = argv[1];
+
+  if (is_brainfuck_file(filename) == 1) {
+    print_usage();
     return EXIT_FAILURE;
   }
 
