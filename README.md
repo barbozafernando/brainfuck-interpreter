@@ -1,3 +1,5 @@
+![screenshot](assets/bf.jpg)
+
 ## Requirements
 - GCC
 - Make
