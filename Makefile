@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS = -Wall -Wextra -std=c11 -g
-SRC=interpreter.c
-OBJ=interpreter.o
+SRC=interpreter.c main.c
+OBJ=interpreter.o main.o
 TARGET=interpreter
 
 all: $(TARGET)
