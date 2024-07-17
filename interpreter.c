@@ -6,8 +6,8 @@
 #include "interpreter.h"
 
 void interpret(const char* filename, char* p_tape) {
-  void* base_tape       = p_tape;
-  void* final_tape      = p_tape + TAPE_CAPACITY;
+  void* base_tape  = p_tape;
+  void* final_tape = p_tape + TAPE_CAPACITY;
 
   FILE* f = fopen(filename, "r");
 
