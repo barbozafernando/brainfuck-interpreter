@@ -39,7 +39,7 @@ int main(int argc, char** argv) {
 
   char* tape = calloc(TAPE_CAPACITY, sizeof(char));
 
-  interpret(argv[1], tape);
+  interpret(filename, tape);
 
   free(tape);
   

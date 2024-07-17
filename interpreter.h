@@ -3,7 +3,7 @@
 
 #define TAPE_CAPACITY 4096
 
-void interpret(char* program, char* p_tape);
+void interpret(const char* program, char* p_tape);
 
 #endif
 

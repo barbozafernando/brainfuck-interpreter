@@ -5,11 +5,11 @@
 
 #include "interpreter.h"
 
-void interpret(char* program, char* p_tape) {
+void interpret(const char* filename, char* p_tape) {
   void* base_tape       = p_tape;
   char* final_tape      = p_tape + TAPE_CAPACITY;
 
-  FILE* f = fopen(program, "r");
+  FILE* f = fopen(filename, "r");
 
   if (f == NULL) {
     fprintf(stderr, "Error reading file");
