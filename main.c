@@ -39,6 +39,11 @@ int main(int argc, char** argv) {
 
   char* tape = calloc(TAPE_CAPACITY, sizeof(char));
 
+  if (tape == NULL) {
+    fprintf(stderr, "Memory allocation has failed.");
+    return EXIT_FAILURE;
+  }
+
   interpret(filename, tape);
 
   free(tape);
