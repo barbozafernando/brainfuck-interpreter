@@ -7,7 +7,7 @@
 
 void interpret(const char* filename, char* p_tape) {
   void* base_tape       = p_tape;
-  char* final_tape      = p_tape + TAPE_CAPACITY;
+  void* final_tape      = p_tape + TAPE_CAPACITY;
 
   FILE* f = fopen(filename, "r");
 
@@ -30,7 +30,7 @@ void interpret(const char* filename, char* p_tape) {
         break;
       case '>':
         {
-          char* p_next = p_tape + 1;
+          void* p_next = p_tape + 1;
           if (p_next > final_tape) {
             fprintf(stderr, "SEGFAULT");
             exit(EXIT_FAILURE);
