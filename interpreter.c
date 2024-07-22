@@ -85,7 +85,7 @@ void interpret(const char* filename, char* p_tape) {
       case '\r':
         break;
       default:
-        fprintf(stderr, "Command doesnt exist\n");
+        fprintf(stderr, "Command '%c' doesnt exist\n", c);
     };
   }
 }
