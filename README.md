@@ -16,9 +16,9 @@ $ mingw32-make.exe
 ## Usage
 Linux:
 ```
-$ ./interpret <program.b|bf>
+$ ./brainfuck <program.b|bf>
 ```
 Windows:
 ```
-$ ./interpret.exe <program.b|bf>
+$ ./brainfuck.exe <program.b|bf>
 ```
