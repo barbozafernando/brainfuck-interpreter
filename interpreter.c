@@ -18,7 +18,7 @@ void interpret(const char* filename, char* p_tape) {
 
   int c;
   long loop_stack[256];
-  int loop_stack_ptr = 0;
+  int p_loop_stack = 0;
 
   while((c = getc(f)) != EOF) {
     switch (c) {
@@ -66,14 +66,14 @@ void interpret(const char* filename, char* p_tape) {
             }
           }
         } else {
-          loop_stack[loop_stack_ptr++] = ftell(f) - 1;
+          loop_stack[p_loop_stack++] = ftell(f) - 1;
         }
         break;
       case ']':
         if (*p_tape != 0) {
-          fseek(f, loop_stack[loop_stack_ptr - 1], SEEK_SET);
+          fseek(f, loop_stack[p_loop_stack - 1], SEEK_SET);
         } else {
-          loop_stack_ptr--;
+          p_loop_stack--;
         }
         break;
       case ',':
