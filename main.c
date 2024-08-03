@@ -5,7 +5,7 @@
 #include "interpreter.h"
 
 void print_usage() {
-  fprintf(stderr, "Usage: <program.b|bf>\n");
+  fprintf(stderr, "Usage:\n\t./<program.b|bf>\n");
 }
 
 int is_brainfuck_file(const char* filename) {
