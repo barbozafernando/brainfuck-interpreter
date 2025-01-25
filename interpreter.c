@@ -32,7 +32,7 @@ void interpret(const char* filename, char* p_tape) {
         {
           void* p_next = p_tape + 1;
           if (p_next > final_tape) {
-            fprintf(stderr, "SEGFAULT");
+            fprintf(stderr, "Error attempt to reach memory out of tape");
             exit(EXIT_FAILURE);
           }
         }
@@ -42,7 +42,7 @@ void interpret(const char* filename, char* p_tape) {
         {
           void* p_prev = p_tape - 1;
           if (p_prev < base_tape) {
-            fprintf(stderr, "SEGFAULT");
+            fprintf(stderr, "Error attempt to reach memory out of tape");
             exit(EXIT_FAILURE);
           }
         }
