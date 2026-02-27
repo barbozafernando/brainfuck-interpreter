@@ -2,7 +2,7 @@ CC=gcc
 CFLAGS=-Wall -Wextra -std=c11 -g
 SRC=interpreter.c main.c
 OBJ=interpreter.o main.o
-TARGET=brainfuck
+TARGET=bfintpr
 
 all: $(TARGET)
 
