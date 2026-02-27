@@ -49,7 +49,7 @@ int main(int argc, char** argv) {
     .end_pos = mem + TAPE_CAPACITY,
   };
 
-  interpret(filename, tape);
+  interpret(filename, &tape);
 
   free(tape.start_pos);
   

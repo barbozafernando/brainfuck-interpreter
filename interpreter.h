@@ -10,7 +10,7 @@ typedef struct {
   size_t capacity;
 } Tape;
 
-void interpret(const char* filename, Tape p_tape);
+void interpret(const char* filename, Tape* p_tape);
 
 #endif
 

@@ -10,5 +10,5 @@ $ make
 ```
 ## Usage
 ```
-$ ./brainfuck <program.b|bf>
+$ ./bfintpr <program.b|bf>
 ```
